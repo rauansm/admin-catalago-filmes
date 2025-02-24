@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.9</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>com.codelabs.admin.catalago</groupId>
+    <artifactId>admin-catalago-videos</artifactId>
+    <version>${revision}</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>domain</module>
+        <module>application</module>
+        <module>infrastructure</module>
+        <module>common</module>
+    </modules>
+
+    <properties>
+        <!-- JAVA -->
+        <java.version>17</java.version>
+        <!-- VERSÃO DO PROJETO -->
+        <revision>1.0.0</revision>
+        <!-- LOMBOK -->
+        <lombok.version>1.18.30</lombok.version>
+        <!-- Junit -->
+        <junit.version>5.9.2</junit.version>
+        <!-- SPRING DEPENDENCIES -->
+        <spring.dependencies>3.3.9</spring.dependencies>
+        <!-- MOCKITO -->
+        <mockito.version>5.2.0</mockito.version>
+        <!-- JACKSON -->
+        <jackson.version>2.17.0</jackson.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.dependencies}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- LOMBOK -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- Junit -->
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- Mockito -->
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-junit-jupiter</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- Jackson -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

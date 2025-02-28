@@ -3,10 +3,6 @@ server:
   port: 8080
   servlet:
     context-path: /api
-    encoding:
-      charset: UTF-8
-      enabled: true
-      force: true
   compression:
     enabled: true # Habilita a compressão das respostas HTTP.
     mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json # Lista separada por vírgulas de tipos MIME que devem ser compactados.
@@ -19,12 +15,8 @@ server:
 spring:
   application:
     name: admin-catalago-videos
-  http:
-    encoding:
-      charset: UTF-8
-      enabled: true
-      force: true
   flyway:
+    locations: classpath:db/migration
     enabled: true
   datasource:
     url: jdbc:mysql://${mysql.url}/${mysql.schema}?useSSL=true&serverTimezone=UTC&characterEncoding=UTF-8
@@ -43,8 +35,9 @@ spring:
     hibernate:
       ddl-auto: none
     properties:
-      "[hibernate.dialect]": org.hibernate.dialect.MySQLDialect
       "[hibernate.generate_statistics]": false
       "[hibernate.connection.provider_disables_autocommit]": true
+      "[hibernate.check_nullability]": true
       # Para aumentar a performance ao máximo, desabilitamos o auto-commit e o open-in-view.
       # https://vladmihalcea.com/why-you-should-always-use-hibernate-connection-provider_disables_autocommit-for-resource-local-jpa-transactions/
+

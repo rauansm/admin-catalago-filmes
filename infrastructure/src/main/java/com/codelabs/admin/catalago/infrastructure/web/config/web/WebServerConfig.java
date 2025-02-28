@@ -1,4 +1,4 @@
-package com.codelabs.admin.catalago.infrastructure.configuration;
+package com.codelabs.admin.catalago.infrastructure.web.config.web;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

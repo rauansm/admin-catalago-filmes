@@ -2,11 +2,13 @@ package com.codelabs.admin.catalago.domain.category;
 
 import com.codelabs.admin.catalago.domain.Identifier;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.util.Objects;
 import java.util.UUID;
 
 @EqualsAndHashCode(callSuper = false)
+@ToString
 public class CategoryID extends Identifier {
 
     private final String value;

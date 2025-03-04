@@ -1,4 +1,4 @@
-package com.codelabs.admin.catalago.infrastructure.persistence.category.dto;
+package com.codelabs.admin.catalago.infrastructure.web.in.category.dto;
 
 import com.codelabs.admin.catalago.JacksonTest;
 import com.codelabs.admin.catalago.infrastructure.web.in.category.dto.CategoryRequest;

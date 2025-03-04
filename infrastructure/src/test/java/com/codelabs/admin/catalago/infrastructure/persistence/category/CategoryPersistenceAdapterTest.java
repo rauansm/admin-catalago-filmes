@@ -2,7 +2,7 @@ package com.codelabs.admin.catalago.infrastructure.persistence.category;
 
 import com.codelabs.admin.catalago.domain.category.Category;
 import com.codelabs.admin.catalago.domain.category.CategoryID;
-import com.codelabs.admin.catalago.domain.category.CategorySearchQuery;
+import com.codelabs.admin.catalago.domain.pagination.SearchQuery;
 import com.codelabs.admin.catalago.MySQLAdapterTest;
 import com.codelabs.admin.catalago.infrastructure.persistence.category.adapter.CategoryPersistenceAdapter;
 import com.codelabs.admin.catalago.infrastructure.persistence.category.entity.CategoryEntity;
@@ -139,7 +139,7 @@ public class CategoryPersistenceAdapterTest {
 
         Assertions.assertEquals(3, categoryRepository.count());
 
-        final var query = new CategorySearchQuery(0, 1, "", "name", "asc");
+        final var query = new SearchQuery(0, 1, "", "name", "asc");
         final var actualResult = categoryAdapter.listCategories(query);
 
         Assertions.assertEquals(expectedPage, actualResult.currentPage());
@@ -157,7 +157,7 @@ public class CategoryPersistenceAdapterTest {
 
         Assertions.assertEquals(0, categoryRepository.count());
 
-        final var query = new CategorySearchQuery(0, 1, "", "name", "asc");
+        final var query = new SearchQuery(0, 1, "", "name", "asc");
         final var actualResult = categoryAdapter.listCategories(query);
 
         Assertions.assertEquals(expectedPage, actualResult.currentPage());
@@ -186,7 +186,7 @@ public class CategoryPersistenceAdapterTest {
 
         Assertions.assertEquals(3, categoryRepository.count());
 
-        var query = new CategorySearchQuery(0, 1, "", "name", "asc");
+        var query = new SearchQuery(0, 1, "", "name", "asc");
         var actualResult = categoryAdapter.listCategories(query);
 
         Assertions.assertEquals(expectedPage, actualResult.currentPage());
@@ -198,7 +198,7 @@ public class CategoryPersistenceAdapterTest {
         // Page 1
         expectedPage = 1;
 
-        query = new CategorySearchQuery(1, 1, "", "name", "asc");
+        query = new SearchQuery(1, 1, "", "name", "asc");
         actualResult = categoryAdapter.listCategories(query);
 
         Assertions.assertEquals(expectedPage, actualResult.currentPage());
@@ -210,7 +210,7 @@ public class CategoryPersistenceAdapterTest {
         // Page 2
         expectedPage = 2;
 
-        query = new CategorySearchQuery(2, 1, "", "name", "asc");
+        query = new SearchQuery(2, 1, "", "name", "asc");
         actualResult = categoryAdapter.listCategories(query);
 
         Assertions.assertEquals(expectedPage, actualResult.currentPage());
@@ -240,7 +240,7 @@ public class CategoryPersistenceAdapterTest {
 
         Assertions.assertEquals(3, categoryRepository.count());
 
-        final var query = new CategorySearchQuery(0, 1, "doc", "name", "asc");
+        final var query = new SearchQuery(0, 1, "doc", "name", "asc");
         final var actualResult = categoryAdapter.listCategories(query);
 
         Assertions.assertEquals(expectedPage, actualResult.currentPage());
@@ -270,7 +270,7 @@ public class CategoryPersistenceAdapterTest {
 
         Assertions.assertEquals(3, categoryRepository.count());
 
-        final var query = new CategorySearchQuery(0, 1, "MAIS ASSISTIDA", "name", "asc");
+        final var query = new SearchQuery(0, 1, "MAIS ASSISTIDA", "name", "asc");
         final var actualResult = categoryAdapter.listCategories(query);
 
         Assertions.assertEquals(expectedPage, actualResult.currentPage());

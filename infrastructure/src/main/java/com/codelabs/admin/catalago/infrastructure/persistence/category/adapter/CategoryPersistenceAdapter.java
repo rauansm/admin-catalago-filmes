@@ -5,8 +5,8 @@ import com.codelabs.admin.catalago.common.exceptions.NotFoundException;
 import com.codelabs.admin.catalago.common.stereotype.PersistenceAdapter;
 import com.codelabs.admin.catalago.domain.category.Category;
 import com.codelabs.admin.catalago.domain.category.CategoryID;
-import com.codelabs.admin.catalago.domain.category.CategorySearchQuery;
 import com.codelabs.admin.catalago.domain.pagination.Pagination;
+import com.codelabs.admin.catalago.domain.pagination.SearchQuery;
 import com.codelabs.admin.catalago.infrastructure.persistence.category.entity.CategoryEntity;
 import com.codelabs.admin.catalago.infrastructure.persistence.category.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 import static com.codelabs.admin.catalago.common.utils.SpecificationUtils.like;
 import static net.logstash.logback.argument.StructuredArguments.kv;
@@ -29,28 +31,28 @@ public class CategoryPersistenceAdapter implements CategoryPort {
     private final CategoryRepository categoryRepository;
 
     @Override
-    public Category save(Category category) {
+    public Category save(final Category category) {
         log.info(append("category", category), "Starting category persistence in the database...");
 
-        CategoryEntity entity = CategoryEntity.from(category);
+        final CategoryEntity entity = CategoryEntity.from(category);
         log.info(append("entity", entity), "Object mapped successfully!");
 
-        CategoryEntity savedEntity = categoryRepository.save(entity);
+        final CategoryEntity savedEntity = this.categoryRepository.save(entity);
 
         log.info(append("entity", savedEntity), "Category persisted successfully!");
         return savedEntity.toAggregate();
     }
 
     @Override
-    public Category getById(CategoryID id) {
+    public Category getById(final CategoryID id) {
         log.info("Searching category in the database... {}", id.getValue());
 
-        Optional<CategoryEntity> categoryEntity = this.categoryRepository.findById(id.getValue());
+        final Optional<CategoryEntity> categoryEntity = this.categoryRepository.findById(id.getValue());
 
         categoryEntity.ifPresent(
                 entity -> log.info(append("entity", entity), "Category found successfully!"));
 
-        Category category = categoryEntity
+        final Category category = categoryEntity
                 .map(CategoryEntity::toAggregate)
                 .orElseThrow(() -> new NotFoundException(String.format("Category not found in database with id %s", id.getValue())));
 
@@ -59,7 +61,7 @@ public class CategoryPersistenceAdapter implements CategoryPort {
     }
 
     @Override
-    public void deleteById(CategoryID id) {
+    public void deleteById(final CategoryID id) {
         log.info("Starting category deletion in the database... {}", id.getValue());
 
         final String idValue = id.getValue();
@@ -71,7 +73,7 @@ public class CategoryPersistenceAdapter implements CategoryPort {
     }
 
     @Override
-    public Pagination<Category> listCategories(CategorySearchQuery query) {
+    public Pagination<Category> listCategories(final SearchQuery query) {
         log.info(append("params", query), "Searching category in database by parameters");
 
         // Paginação
@@ -84,11 +86,7 @@ public class CategoryPersistenceAdapter implements CategoryPort {
         // Busca dinamica pelo criterio terms (name ou description)
         final var specifications = Optional.ofNullable(query.terms())
                 .filter(str -> !str.isBlank())
-                .map(str -> {
-                    final Specification<CategoryEntity> nameLike = like("name", str);
-                    final Specification<CategoryEntity> descriptionLike = like("description", str);
-                    return nameLike.or(descriptionLike);
-                })
+                .map(this::assembleSpecification)
                 .orElse(null);
 
         final var pageResult =
@@ -101,5 +99,25 @@ public class CategoryPersistenceAdapter implements CategoryPort {
                 pageResult.getTotalElements(),
                 pageResult.map(CategoryEntity::toAggregate).toList()
         );
+    }
+
+    @Override
+    public List<CategoryID> existsByIds(final Iterable<CategoryID> categoryIDs) {
+        log.info("Searching category ids in the database... {}", categoryIDs);
+
+        final var ids = StreamSupport.stream(categoryIDs.spliterator(), false)
+                .map(CategoryID::getValue)
+                .toList();
+
+        return this.categoryRepository.existsByIds(ids).stream()
+                .peek(id -> log.info("id found in database: {}", id))
+                .map(CategoryID::from)
+                .toList();
+    }
+
+    private Specification<CategoryEntity> assembleSpecification(final String str) {
+        final Specification<CategoryEntity> nameLike = like("name", str);
+        final Specification<CategoryEntity> descriptionLike = like("description", str);
+        return nameLike.or(descriptionLike);
     }
 }

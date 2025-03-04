@@ -1,7 +1,7 @@
 package com.codelabs.admin.catalago.application.ports.in;
 
 import com.codelabs.admin.catalago.domain.category.Category;
-import com.codelabs.admin.catalago.domain.category.CategorySearchQuery;
+import com.codelabs.admin.catalago.domain.pagination.SearchQuery;
 import com.codelabs.admin.catalago.domain.pagination.Pagination;
 
 public interface CategoryUseCase {
@@ -14,5 +14,5 @@ public interface CategoryUseCase {
 
     Category update(final Category category);
 
-    Pagination<Category> listCategories(final CategorySearchQuery query);
+    Pagination<Category> listCategories(final SearchQuery query);
 }

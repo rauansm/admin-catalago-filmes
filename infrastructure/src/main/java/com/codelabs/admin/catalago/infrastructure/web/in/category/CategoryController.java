@@ -3,14 +3,14 @@ package com.codelabs.admin.catalago.infrastructure.web.in.category;
 import com.codelabs.admin.catalago.application.ports.in.CategoryUseCase;
 import com.codelabs.admin.catalago.common.exceptions.PhysicalValidationException;
 import com.codelabs.admin.catalago.domain.category.Category;
-import com.codelabs.admin.catalago.domain.category.CategorySearchQuery;
+import com.codelabs.admin.catalago.domain.pagination.SearchQuery;
 import com.codelabs.admin.catalago.domain.pagination.Pagination;
 import com.codelabs.admin.catalago.infrastructure.web.in.category.dto.CategoryDetailsResponse;
 import com.codelabs.admin.catalago.infrastructure.web.in.category.dto.CategoryListResponse;
 import com.codelabs.admin.catalago.infrastructure.web.in.category.dto.CategoryRequest;
 import com.codelabs.admin.catalago.infrastructure.web.in.category.dto.CategoryResponse;
 import com.codelabs.admin.catalago.infrastructure.web.in.category.mapper.CategoryControllerMapper;
-import com.codelabs.admin.catalago.infrastructure.web.in.category.validator.PhysicalValidator;
+import com.codelabs.admin.catalago.infrastructure.web.in.category.validator.CategoryValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +29,7 @@ public class CategoryController implements CategoryAPI {
     public static final String CATEGORY_WAS_MAPPED_SUCCESSFULLY = "Category was mapped successfully";
     private final CategoryUseCase categoryUseCase;
     private final CategoryControllerMapper mapper;
-    private final PhysicalValidator validator;
+    private final CategoryValidator validator;
 
     @Override
     public ResponseEntity<CategoryResponse> create(final CategoryRequest request) {
@@ -41,7 +41,7 @@ public class CategoryController implements CategoryAPI {
         log.info(append(CATEGORY_FIELD, category), CATEGORY_WAS_MAPPED_SUCCESSFULLY);
 
         final Category createdCategory = categoryUseCase.create(category);
-        log.info(append(CATEGORY_FIELD, category), "Category was created successfully");
+        log.info(append(CATEGORY_FIELD, createdCategory), "Category was created successfully");
 
         final CategoryResponse categoryResponse = mapper.toResponse(createdCategory, CategoryResponse::from);
         log.info(append(CATEGORY_FIELD, categoryResponse), "Created category was mapped successfully");
@@ -59,10 +59,10 @@ public class CategoryController implements CategoryAPI {
         final Category category = mapper.toDomain(request, id);
         log.info(append(CATEGORY_FIELD, category), CATEGORY_WAS_MAPPED_SUCCESSFULLY);
 
-        final Category updateCategory = categoryUseCase.update(category);
+        final Category updatedCategory = categoryUseCase.update(category);
         log.info(append(CATEGORY_FIELD, category), "Category was update successfully");
 
-        final CategoryResponse categoryResponse = mapper.toResponse(updateCategory, CategoryResponse::from);
+        final CategoryResponse categoryResponse = mapper.toResponse(updatedCategory, CategoryResponse::from);
         log.info(append(CATEGORY_FIELD, categoryResponse), "Updated category was mapped successfully");
 
         return ResponseEntity.ok(categoryResponse);
@@ -91,7 +91,7 @@ public class CategoryController implements CategoryAPI {
                                                 .and(append("dir", direction))))),
                 "Receiving request to list categories by parameters");
 
-        final Pagination<Category> categoryPagination = categoryUseCase.listCategories(new CategorySearchQuery(page, perPage, search, sort, direction));
+        final Pagination<Category> categoryPagination = categoryUseCase.listCategories(new SearchQuery(page, perPage, search, sort, direction));
         log.info(append(CATEGORY_FIELD, categoryPagination), "categories found");
 
         final Pagination<CategoryListResponse> listResponse = categoryPagination.map(CategoryListResponse::from);

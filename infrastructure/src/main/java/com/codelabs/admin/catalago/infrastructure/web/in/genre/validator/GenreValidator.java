@@ -1,16 +1,14 @@
-package com.codelabs.admin.catalago.infrastructure.web.in.category.validator;
+package com.codelabs.admin.catalago.infrastructure.web.in.genre.validator;
 
 import br.com.fluentvalidator.AbstractValidator;
 import com.codelabs.admin.catalago.domain.enums.ProblemType;
-import com.codelabs.admin.catalago.infrastructure.web.in.category.dto.CategoryRequest;
-import org.springframework.stereotype.Component;
+import com.codelabs.admin.catalago.infrastructure.web.in.genre.dto.GenreRequest;
 
 import static br.com.fluentvalidator.predicate.StringPredicate.stringEmptyOrNull;
 import static br.com.fluentvalidator.predicate.StringPredicate.stringSizeBetween;
 import static java.util.function.Predicate.not;
 
-@Component
-public class PhysicalValidator extends AbstractValidator<CategoryRequest> {
+public class GenreValidator extends AbstractValidator<GenreRequest> {
 
     private static final String NAME = "name";
     public static final int NAME_MAX_LENGTH = 255;
@@ -18,19 +16,20 @@ public class PhysicalValidator extends AbstractValidator<CategoryRequest> {
 
     @Override
     public void rules() {
-        ruleFor(categoryRequest -> categoryRequest)
+        ruleFor(genreRequest -> genreRequest)
 
                 // NAME
-                .must(not(stringEmptyOrNull(CategoryRequest::name)))
+                .must(not(stringEmptyOrNull(GenreRequest::name)))
                 .withFieldName(NAME)
                 .withCode(ProblemType.NAME_MUST_NOT_BE_NULL.name())
                 .withMessage(ProblemType.NAME_MUST_NOT_BE_NULL.getDescription())
 
-                .must(stringSizeBetween(CategoryRequest::name, NAME_MIN_LENGTH, NAME_MAX_LENGTH))
-                .when(not(stringEmptyOrNull(CategoryRequest::name)))
+                .must(stringSizeBetween(GenreRequest::name, NAME_MIN_LENGTH, NAME_MAX_LENGTH))
+                .when(not(stringEmptyOrNull(GenreRequest::name)))
                 .withFieldName(NAME)
                 .withCode(ProblemType.NAME_SIZE_MINIMUM_MAXIMUM.name())
                 .withMessage(ProblemType.NAME_SIZE_MINIMUM_MAXIMUM.getDescription());
 
     }
+
 }

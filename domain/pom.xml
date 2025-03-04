@@ -43,6 +43,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Dependência do módulo Common -->
+        <dependency>
+            <groupId>com.codelabs.admin.catalago.common</groupId>
+            <artifactId>common</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
     </dependencies>
 
 </project>

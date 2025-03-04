@@ -1,4 +1,4 @@
-package com.codelabs.admin.catalago.infrastructure.web.api;
+package com.codelabs.admin.catalago.infrastructure.web.in.category;
 
 import br.com.fluentvalidator.context.Error;
 import br.com.fluentvalidator.context.ValidationResult;
@@ -8,12 +8,11 @@ import com.codelabs.admin.catalago.common.exceptions.NotFoundException;
 import com.codelabs.admin.catalago.domain.category.Category;
 import com.codelabs.admin.catalago.domain.enums.ProblemType;
 import com.codelabs.admin.catalago.domain.pagination.Pagination;
-import com.codelabs.admin.catalago.infrastructure.web.in.category.CategoryAPI;
 import com.codelabs.admin.catalago.infrastructure.web.in.category.dto.CategoryDetailsResponse;
 import com.codelabs.admin.catalago.infrastructure.web.in.category.dto.CategoryRequest;
 import com.codelabs.admin.catalago.infrastructure.web.in.category.dto.CategoryResponse;
 import com.codelabs.admin.catalago.infrastructure.web.in.category.mapper.CategoryControllerMapper;
-import com.codelabs.admin.catalago.infrastructure.web.in.category.validator.PhysicalValidator;
+import com.codelabs.admin.catalago.infrastructure.web.in.category.validator.CategoryValidator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +47,7 @@ public class CategoryAPITest {
     private CategoryControllerMapper mapper;
 
     @MockBean
-    private PhysicalValidator validator;
+    private CategoryValidator validator;
 
     @Test
     public void givenAValidRequest_whenCallsCreateCategory_shouldReturnCategoryId() throws Exception {

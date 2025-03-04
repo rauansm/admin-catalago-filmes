@@ -4,7 +4,7 @@ import com.codelabs.admin.catalago.IntegrationTest;
 import com.codelabs.admin.catalago.application.service.CategoryService;
 import com.codelabs.admin.catalago.domain.category.Category;
 import com.codelabs.admin.catalago.domain.category.CategoryID;
-import com.codelabs.admin.catalago.domain.category.CategorySearchQuery;
+import com.codelabs.admin.catalago.domain.pagination.SearchQuery;
 import com.codelabs.admin.catalago.infrastructure.persistence.category.entity.CategoryEntity;
 import com.codelabs.admin.catalago.infrastructure.persistence.category.repository.CategoryRepository;
 import org.junit.jupiter.api.Assertions;
@@ -221,7 +221,7 @@ public class CategoryServiceIT {
         mockListCategories();
 
         final var query =
-                new CategorySearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
+                new SearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
 
         final var actualResponse = service.listCategories(query);
 
@@ -254,7 +254,7 @@ public class CategoryServiceIT {
         mockListCategories();
 
         final var query =
-                new CategorySearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
+                new SearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
 
         final var actualResult = service.listCategories(query);
 
@@ -284,7 +284,7 @@ public class CategoryServiceIT {
         mockListCategories();
 
         final var query =
-                new CategorySearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
+                new SearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
 
         final var actualResult = service.listCategories(query);
 
@@ -318,7 +318,7 @@ public class CategoryServiceIT {
         mockListCategories();
 
         final var query =
-                new CategorySearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
+                new SearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
 
         final var actualResult = service.listCategories(query);
 

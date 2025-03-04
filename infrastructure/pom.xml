@@ -14,6 +14,7 @@
 
     <properties>
         <flyway.version>11.1.1</flyway.version>
+        <mysql.version>8.2.0</mysql.version>
         <spring-doc.version>2.3.0</spring-doc.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
@@ -50,7 +51,7 @@
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
-            <scope>runtime</scope>
+            <version>${mysql.version}</version>
         </dependency>
 
         <!-- JPA -->
@@ -128,7 +129,7 @@
             <scope>runtime</scope>
         </dependency>
 
-<!--         TEST CONTAINERS CORE-->
+        <!--TEST CONTAINERS CORE-->
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>testcontainers</artifactId>

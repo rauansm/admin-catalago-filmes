@@ -1,9 +1,10 @@
-package com.codelabs.admin.catalago.application.service;
+package com.codelabs.admin.catalago.application.service.category;
 
 import com.codelabs.admin.catalago.application.ports.out.CategoryPort;
+import com.codelabs.admin.catalago.application.service.CategoryService;
 import com.codelabs.admin.catalago.domain.category.Category;
 import com.codelabs.admin.catalago.domain.category.CategoryID;
-import com.codelabs.admin.catalago.domain.category.CategorySearchQuery;
+import com.codelabs.admin.catalago.domain.pagination.SearchQuery;
 import com.codelabs.admin.catalago.domain.pagination.Pagination;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -76,8 +77,8 @@ public class CategoryServiceTest {
         when(categoryPort.getById(eq(expectedId)))
                 .thenReturn((actualCategory.clone()));
 
-        when(categoryPort.save(any(Category.class)))
-                .thenReturn(updateCategory);
+        when(categoryPort.save(any()))
+                .thenAnswer(returnsFirstArg());
 
         final var categoryResponse = service.update(updateCategory);
         Assertions.assertNotNull(categoryResponse);
@@ -202,7 +203,7 @@ public class CategoryServiceTest {
         final var expectedDirection = "asc";
 
         final var query =
-                new CategorySearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
+                new SearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
 
         final var expectedPagination =
                 new Pagination<>(expectedPage, expectedPerPage, categories.size(), categories);
@@ -232,7 +233,7 @@ public class CategoryServiceTest {
         final var expectedDirection = "asc";
 
         final var query =
-                new CategorySearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
+                new SearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
 
         final var expectedPagination =
                 new Pagination<>(expectedPage, expectedPerPage, categories.size(), categories);

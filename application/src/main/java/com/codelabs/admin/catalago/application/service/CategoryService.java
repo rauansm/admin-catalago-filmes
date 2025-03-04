@@ -5,8 +5,8 @@ import com.codelabs.admin.catalago.application.ports.out.CategoryPort;
 import com.codelabs.admin.catalago.common.stereotype.UseCase;
 import com.codelabs.admin.catalago.domain.category.Category;
 import com.codelabs.admin.catalago.domain.category.CategoryID;
-import com.codelabs.admin.catalago.domain.category.CategorySearchQuery;
 import com.codelabs.admin.catalago.domain.pagination.Pagination;
+import com.codelabs.admin.catalago.domain.pagination.SearchQuery;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -62,7 +62,7 @@ public class CategoryService implements CategoryUseCase {
     }
 
     @Override
-    public Pagination<Category> listCategories(final CategorySearchQuery query) {
+    public Pagination<Category> listCategories(final SearchQuery query) {
         log.info(append("query", query), "Search all category by query params");
 
         final var categories = this.categoryPort.listCategories(query);

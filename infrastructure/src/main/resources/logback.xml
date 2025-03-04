@@ -59,7 +59,7 @@
         <appender-ref ref="JSON" />
     </root>
 
-    <logger name="com.codelabs.admin.catalago" level="DEBUG" additivity="false">
+    <logger name="com.codelabs.admin.catalago" level="INFO" additivity="false">
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="JSON" />
     </logger>

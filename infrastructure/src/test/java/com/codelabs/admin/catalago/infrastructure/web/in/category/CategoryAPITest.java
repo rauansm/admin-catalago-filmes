@@ -92,7 +92,7 @@ public class CategoryAPITest {
     }
 
     @Test
-    public void givenInvalidName_whenCallsCreateCategory_thenShouldReturnException() throws Exception {
+    public void givenInvalidName_whenCallsValidator_thenShouldReturnPhysicalValidationException() throws Exception {
         // given
         final String expectedName = null;
         final var expectedDescription = "A categoria mais assistida";

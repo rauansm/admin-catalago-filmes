@@ -2,6 +2,7 @@ package com.codelabs.admin.catalago.domain.castmember;
 
 import com.codelabs.admin.catalago.common.utils.InstantUtils;
 import com.codelabs.admin.catalago.domain.AggregateRoot;
+import com.codelabs.admin.catalago.domain.enums.CastMemberType;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -34,6 +35,12 @@ public class CastMember extends AggregateRoot<CastMemberID> {
         final var id = CastMemberID.unique();
         final var now = InstantUtils.now();
         return new CastMember(id, name, type, now, now);
+    }
+
+    public static CastMember newMember(final String id, final String name, final CastMemberType type) {
+        final var castMemberID = CastMemberID.from(id);
+        final var now = InstantUtils.now();
+        return new CastMember(castMemberID, name, type, now, now);
     }
 
     public static CastMember with(final CastMember member) {

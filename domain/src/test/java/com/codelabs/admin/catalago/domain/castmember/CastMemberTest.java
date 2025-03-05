@@ -1,5 +1,6 @@
 package com.codelabs.admin.catalago.domain.castmember;
 
+import com.codelabs.admin.catalago.domain.enums.CastMemberType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

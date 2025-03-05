@@ -1,5 +1,6 @@
 package com.codelabs.admin.catalago.domain.category;
 
+import com.codelabs.admin.catalago.common.utils.InstantUtils;
 import com.codelabs.admin.catalago.domain.AggregateRoot;
 import lombok.Getter;
 import lombok.ToString;
@@ -38,16 +39,15 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable {
 
     public static Category newCategory(final String name, final String description, final boolean active) {
         final var id = CategoryID.unique();
-        final var now = Instant.now();
+        final var now = InstantUtils.now();
         final var deletedAt = active ? null : now;
         return new Category(id, name, description, active, now, now, deletedAt);
     }
 
     public static Category newCategory(final String id, final String name, final String description, final boolean active) {
         final var categoryID = CategoryID.from(id);
-        final var now = Instant.now();
-        final var deletedAt = active ? null : now;
-        return new Category(categoryID, name, description, active, now, now, deletedAt);
+        final var now = InstantUtils.now();
+        return new Category(categoryID, name, description, active, now, now, null);
     }
 
     public static Category with(
@@ -72,18 +72,18 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable {
 
     public Category deactivate() {
         if (getDeletedAt() == null) {
-            this.deletedAt = Instant.now();
+            this.deletedAt = InstantUtils.now();
         }
 
         this.active = false;
-        this.updatedAt = Instant.now();
+        this.updatedAt = InstantUtils.now();
         return this;
     }
 
     public Category activate() {
         this.deletedAt = null;
         this.active = true;
-        this.updatedAt = Instant.now();
+        this.updatedAt = InstantUtils.now();
         return this;
     }
 
@@ -95,7 +95,7 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable {
         }
         this.name = name;
         this.description = description;
-        this.updatedAt = Instant.now();
+        this.updatedAt = InstantUtils.now();
         return this;
     }
 

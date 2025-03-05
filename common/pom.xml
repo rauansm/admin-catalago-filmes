@@ -18,4 +18,25 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <dependencies>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+
+        <!-- JPA -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <!-- FLUENT VALIDATOR -->
+        <dependency>
+            <groupId>com.github.mvallim</groupId>
+            <artifactId>java-fluent-validator</artifactId>
+            <version>1.10.0</version>
+        </dependency>
+
+    </dependencies>
 </project>

@@ -1,6 +1,6 @@
 package com.codelabs.admin.catalago.infrastructure;
 
-import com.codelabs.admin.catalago.infrastructure.configuration.WebServerConfig;
+import com.codelabs.admin.catalago.infrastructure.web.config.web.WebServerConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;

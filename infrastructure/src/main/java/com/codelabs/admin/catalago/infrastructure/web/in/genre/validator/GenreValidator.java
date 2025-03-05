@@ -3,11 +3,13 @@ package com.codelabs.admin.catalago.infrastructure.web.in.genre.validator;
 import br.com.fluentvalidator.AbstractValidator;
 import com.codelabs.admin.catalago.domain.enums.ProblemType;
 import com.codelabs.admin.catalago.infrastructure.web.in.genre.dto.GenreRequest;
+import org.springframework.stereotype.Component;
 
 import static br.com.fluentvalidator.predicate.StringPredicate.stringEmptyOrNull;
 import static br.com.fluentvalidator.predicate.StringPredicate.stringSizeBetween;
 import static java.util.function.Predicate.not;
 
+@Component
 public class GenreValidator extends AbstractValidator<GenreRequest> {
 
     private static final String NAME = "name";

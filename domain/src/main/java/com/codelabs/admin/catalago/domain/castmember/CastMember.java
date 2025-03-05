@@ -53,6 +53,16 @@ public class CastMember extends AggregateRoot<CastMemberID> {
         );
     }
 
+    public static CastMember with(
+            final CastMemberID anId,
+            final String aName,
+            final CastMemberType aType,
+            final Instant aCreationDate,
+            final Instant aUpdateDate
+    ) {
+        return new CastMember(anId, aName, aType, aCreationDate, aUpdateDate);
+    }
+
     public CastMember update(final String name, final CastMemberType type) {
         this.name = name;
         this.type = type;

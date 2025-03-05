@@ -1,5 +1,6 @@
 package com.codelabs.admin.catalago;
 
+import com.codelabs.admin.catalago.infrastructure.persistence.castmember.repository.CastMemberRepository;
 import com.codelabs.admin.catalago.infrastructure.persistence.category.repository.CategoryRepository;
 import com.codelabs.admin.catalago.infrastructure.persistence.genre.repositoy.GenreRepository;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
@@ -17,6 +18,7 @@ public class MySQLCleanUpExtension implements BeforeEachCallback {
         final var appContext = SpringExtension.getApplicationContext(context);
 
         cleanUp(List.of(
+                appContext.getBean(CastMemberRepository.class),
                 appContext.getBean(GenreRepository.class),
                 appContext.getBean(CategoryRepository.class)
         ));

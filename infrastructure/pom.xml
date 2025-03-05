@@ -151,6 +151,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Java FAKER -->
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+
         <!-- Dependências de Documentação -->
 
         <!-- SpringDoc webmvc ui-->

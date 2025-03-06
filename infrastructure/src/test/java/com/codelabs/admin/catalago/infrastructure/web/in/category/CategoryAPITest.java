@@ -127,7 +127,7 @@ public class CategoryAPITest {
     }
 
     @Test
-    public void givenAValidId_whenCallsGetCategory_shouldReturnCategory() throws Exception {
+    public void givenAValidId_whenCallsGetById_shouldReturnCategory() throws Exception {
         // given
         final var expectedName = "Filmes";
         final var expectedDescription = "A categoria mais assistida";

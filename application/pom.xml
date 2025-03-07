@@ -71,6 +71,13 @@
             <version>7.3</version>
         </dependency>
 
+        <!-- Java FAKER -->
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+
     </dependencies>
 
 </project>

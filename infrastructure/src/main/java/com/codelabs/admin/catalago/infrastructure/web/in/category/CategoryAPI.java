@@ -38,6 +38,7 @@ public interface CategoryAPI {
     @Operation(summary = "Update a category by it's identifier")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Category updated successfully"),
+            @ApiResponse(responseCode = "400", description = "Received ID format is invalid"),
             @ApiResponse(responseCode = "404", description = "Category was not found"),
             @ApiResponse(responseCode = "500", description = "An internal server error was thrown"),
     })
@@ -50,6 +51,7 @@ public interface CategoryAPI {
     @Operation(summary = "Get a category by it's identifier")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Category retrieved successfully"),
+            @ApiResponse(responseCode = "400", description = "Received ID format is invalid"),
             @ApiResponse(responseCode = "404", description = "Category was not found"),
             @ApiResponse(responseCode = "500", description = "An internal server error was thrown"),
     })
@@ -75,6 +77,7 @@ public interface CategoryAPI {
     @Operation(summary = "Delete a category by it's identifier")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Category deleted successfully"),
+            @ApiResponse(responseCode = "400", description = "Received ID format is invalid"),
             @ApiResponse(responseCode = "500", description = "An internal server error was thrown"),
     })
     void deleteById(@PathVariable(name = "id") @Validated @UUID final String id);

@@ -1,9 +1,13 @@
 package com.codelabs.admin.catalago.e2e;
 
 import com.codelabs.admin.catalago.domain.Identifier;
+import com.codelabs.admin.catalago.domain.castmember.CastMemberID;
 import com.codelabs.admin.catalago.domain.category.CategoryID;
+import com.codelabs.admin.catalago.domain.enums.CastMemberType;
 import com.codelabs.admin.catalago.domain.genre.GenreID;
 import com.codelabs.admin.catalago.infrastructure.web.config.json.Json;
+import com.codelabs.admin.catalago.infrastructure.web.in.castmember.dto.CastMemberDetailsResponse;
+import com.codelabs.admin.catalago.infrastructure.web.in.castmember.dto.CastMemberRequest;
 import com.codelabs.admin.catalago.infrastructure.web.in.category.dto.CategoryDetailsResponse;
 import com.codelabs.admin.catalago.infrastructure.web.in.category.dto.CategoryRequest;
 import com.codelabs.admin.catalago.infrastructure.web.in.genre.dto.GenreDetailsResponse;
@@ -22,6 +26,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public interface MockDsl {
 
     MockMvc mvc();
+
+    /**
+     * Category
+     */
 
     default ResultActions deleteACategory(final Identifier id) throws Exception {
         return this.delete("/categories/", id);
@@ -53,6 +61,10 @@ public interface MockDsl {
         return this.update("/categories/", id, request);
     }
 
+    /**
+     * Genre
+     */
+
     default ResultActions deleteAGenre(final Identifier id) throws Exception {
         return this.delete("/genres/", id);
     }
@@ -83,6 +95,48 @@ public interface MockDsl {
         return this.update("/genres/", id, request);
     }
 
+    /**
+     * Cast Member
+     */
+    default ResultActions deleteACastMember(final CastMemberID id) throws Exception {
+        return this.delete("/cast_members/", id);
+    }
+
+    default CastMemberID givenACastMember(final String name, final CastMemberType type) throws Exception {
+        final var requestBody = new CastMemberRequest(name, type);
+        final var actualId = this.given("/cast_members", requestBody);
+        return CastMemberID.from(actualId);
+    }
+
+    default ResultActions givenACastMemberResult(final String name, final CastMemberType type) throws Exception {
+        final var requestBody = new CastMemberRequest(name, type);
+        return this.givenResult("/cast_members", requestBody);
+    }
+
+    default ResultActions listCastMembers(final int page, final int perPage) throws Exception {
+        return listCastMembers(page, perPage, "", "", "");
+    }
+
+    default ResultActions listCastMembers(final int page, final int perPage, final String search) throws Exception {
+        return listCastMembers(page, perPage, search, "", "");
+    }
+
+    default ResultActions listCastMembers(final int page, final int perPage, final String search, final String sort, final String direction) throws Exception {
+        return this.list("/cast_members", page, perPage, search, sort, direction);
+    }
+
+    default CastMemberDetailsResponse retrieveACastMember(final CastMemberID id) throws Exception {
+        return this.retrieve("/cast_members/", id, CastMemberDetailsResponse.class);
+    }
+
+    default ResultActions retrieveACastMemberResult(final CastMemberID id) throws Exception {
+        return this.retrieveResult("/cast_members/", id);
+    }
+
+    default ResultActions updateACastMember(final CastMemberID id, final String name, final CastMemberType type) throws Exception {
+        return this.update("/cast_members/", id, new CastMemberRequest(name, type));
+    }
+
     default <A, D> List<D> mapTo(final List<A> actual, final Function<A, D> mapper) {
         return actual.stream()
                 .map(mapper)
@@ -101,6 +155,14 @@ public interface MockDsl {
                 .replace("%s/".formatted(url), "");
 
         return actualId;
+    }
+
+    private ResultActions givenResult(final String url, final Object body) throws Exception {
+        final var request = post(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(Json.writeValueAsString(body));
+
+        return this.mvc().perform(request);
     }
 
     private ResultActions list(final String url, final int page, final int perPage, final String search, final String sort, final String direction) throws Exception {
@@ -127,6 +189,14 @@ public interface MockDsl {
                 .getResponse().getContentAsString();
 
         return Json.readValue(json, clazz);
+    }
+
+    private ResultActions retrieveResult(final String url, final Identifier id) throws Exception {
+        final var request = get(url + id.getValue())
+                .accept(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON_UTF8);
+
+        return this.mvc().perform(request);
     }
 
     private ResultActions delete(final String url, final Identifier id) throws Exception {

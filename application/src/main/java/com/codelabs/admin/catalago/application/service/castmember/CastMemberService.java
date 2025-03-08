@@ -1,4 +1,4 @@
-package com.codelabs.admin.catalago.application.service;
+package com.codelabs.admin.catalago.application.service.castmember;
 
 import com.codelabs.admin.catalago.application.ports.in.CastMemberUseCase;
 import com.codelabs.admin.catalago.application.ports.out.CastMemberPort;

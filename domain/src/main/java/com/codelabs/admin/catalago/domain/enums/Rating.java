@@ -1,5 +1,6 @@
-package com.codelabs.admin.catalago.domain.video;
+package com.codelabs.admin.catalago.domain.enums;
 
+import com.codelabs.admin.catalago.common.exceptions.DomainException;
 import lombok.Getter;
 
 import java.util.Arrays;
@@ -25,6 +26,6 @@ public enum Rating {
         return Arrays.stream(values())
                 .filter(rating -> rating.name.equalsIgnoreCase(name))
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException(String.format("Rating %s Unknown.", name)));
+                .orElseThrow(() -> new DomainException(String.format("Rating %s Unknown.", name)));
     }
 }

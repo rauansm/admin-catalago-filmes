@@ -2,6 +2,8 @@ package com.codelabs.admin.catalago.domain.video;
 
 import com.codelabs.admin.catalago.domain.castmember.CastMemberID;
 import com.codelabs.admin.catalago.domain.category.CategoryID;
+import com.codelabs.admin.catalago.domain.enums.MediaStatus;
+import com.codelabs.admin.catalago.domain.enums.Rating;
 import com.codelabs.admin.catalago.domain.genre.GenreID;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -163,7 +165,7 @@ public class VideoTest {
         );
 
         final var videoMedia =
-                AudioVideoMedia.with("abc", "Video.mp4", "/123/videos", "", MediaStatus.PENDING);
+                AudioVideoMedia.with("abc", "Video.mp4", "/123/videos");
 
         Thread.sleep(1);
 
@@ -224,7 +226,7 @@ public class VideoTest {
         );
 
         final var trailerMedia =
-                AudioVideoMedia.with("abc", "Trailer.mp4", "/123/videos", "", MediaStatus.PENDING);
+                AudioVideoMedia.with("abc", "Video.mp4", "/123/videos");
 
         Thread.sleep(1);
 

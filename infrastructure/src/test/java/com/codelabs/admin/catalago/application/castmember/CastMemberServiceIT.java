@@ -3,7 +3,7 @@ package com.codelabs.admin.catalago.application.castmember;
 import com.codelabs.admin.catalago.Fixture;
 import com.codelabs.admin.catalago.IntegrationTest;
 import com.codelabs.admin.catalago.application.ports.out.CastMemberPort;
-import com.codelabs.admin.catalago.application.service.CastMemberService;
+import com.codelabs.admin.catalago.application.service.castmember.CastMemberService;
 import com.codelabs.admin.catalago.common.exceptions.NotFoundException;
 import com.codelabs.admin.catalago.domain.castmember.CastMember;
 import com.codelabs.admin.catalago.domain.castmember.CastMemberID;

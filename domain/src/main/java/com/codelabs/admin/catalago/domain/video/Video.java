@@ -4,6 +4,7 @@ import com.codelabs.admin.catalago.common.utils.InstantUtils;
 import com.codelabs.admin.catalago.domain.AggregateRoot;
 import com.codelabs.admin.catalago.domain.castmember.CastMemberID;
 import com.codelabs.admin.catalago.domain.category.CategoryID;
+import com.codelabs.admin.catalago.domain.enums.Rating;
 import com.codelabs.admin.catalago.domain.genre.GenreID;
 import lombok.Getter;
 import lombok.ToString;

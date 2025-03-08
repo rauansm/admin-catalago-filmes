@@ -16,7 +16,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 import static net.logstash.logback.argument.StructuredArguments.kv;
 import static net.logstash.logback.marker.Markers.append;
@@ -94,6 +96,20 @@ public class CastMemberPersistenceAdapter implements CastMemberPort {
                 pageResult.getTotalElements(),
                 pageResult.map(CastMemberEntity::toAggregate).toList()
         );
+    }
+
+    @Override
+    public List<CastMemberID> existsByIds(final Iterable<CastMemberID> memberIDS) {
+        log.info("Searching cast member ids in the database... {}", memberIDS);
+
+        final var ids = StreamSupport.stream(memberIDS.spliterator(), false)
+                .map(CastMemberID::getValue)
+                .toList();
+
+        return this.castMemberRepository.existsByIds(ids).stream()
+                .peek(id -> log.info("id found in database: {}", id))
+                .map(CastMemberID::from)
+                .toList();
     }
 
     private Specification<CastMemberEntity> assembleSpecification(final String terms) {

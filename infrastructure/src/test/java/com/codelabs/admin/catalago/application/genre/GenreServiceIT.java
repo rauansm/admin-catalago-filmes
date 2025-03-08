@@ -3,7 +3,7 @@ package com.codelabs.admin.catalago.application.genre;
 import com.codelabs.admin.catalago.IntegrationTest;
 import com.codelabs.admin.catalago.application.ports.out.CategoryPort;
 import com.codelabs.admin.catalago.application.ports.out.GenrePort;
-import com.codelabs.admin.catalago.application.service.GenreService;
+import com.codelabs.admin.catalago.application.service.genre.GenreService;
 import com.codelabs.admin.catalago.common.exceptions.NotFoundException;
 import com.codelabs.admin.catalago.domain.category.Category;
 import com.codelabs.admin.catalago.domain.category.CategoryID;

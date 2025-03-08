@@ -16,5 +16,5 @@ public interface CategoryPort {
 
     Pagination<Category> listCategories(final SearchQuery query);
 
-    List<CategoryID> existsByIds(Iterable<CategoryID> ids);
+    List<CategoryID> existsByIds(final Iterable<CategoryID> ids);
 }

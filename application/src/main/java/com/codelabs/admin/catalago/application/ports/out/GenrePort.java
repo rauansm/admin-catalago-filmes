@@ -5,6 +5,8 @@ import com.codelabs.admin.catalago.domain.genre.GenreID;
 import com.codelabs.admin.catalago.domain.pagination.Pagination;
 import com.codelabs.admin.catalago.domain.pagination.SearchQuery;
 
+import java.util.List;
+
 public interface GenrePort {
     Genre save(final Genre genre);
 
@@ -14,4 +16,5 @@ public interface GenrePort {
 
     Pagination<Genre> listGenres(final SearchQuery query);
 
+    List<GenreID> existsByIds(final Iterable<GenreID> ids);
 }

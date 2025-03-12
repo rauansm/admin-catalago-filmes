@@ -3,6 +3,7 @@ package com.codelabs.admin.catalago.application.ports.out;
 import com.codelabs.admin.catalago.domain.pagination.Pagination;
 import com.codelabs.admin.catalago.domain.video.Video;
 import com.codelabs.admin.catalago.domain.video.VideoID;
+import com.codelabs.admin.catalago.domain.video.VideoPreview;
 import com.codelabs.admin.catalago.domain.video.VideoSearchQuery;
 
 public interface VideoPort {
@@ -12,5 +13,5 @@ public interface VideoPort {
 
     void deleteById(final VideoID id);
 
-    Pagination<Video> listVideos(final VideoSearchQuery query);
+    Pagination<VideoPreview> listVideos(final VideoSearchQuery query);
 }

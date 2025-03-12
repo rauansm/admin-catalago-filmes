@@ -95,6 +95,14 @@
             <version>2.18.2</version>
         </dependency>
 
+        <!-- AWS S3 -->
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>s3</artifactId>
+            <version>2.30.35</version>
+        </dependency>
+
+
         <!-- Dependências dos outros módulos -->
         <dependency>
             <groupId>com.codelabs.admin.catalago.application</groupId>

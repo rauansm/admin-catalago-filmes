@@ -12,9 +12,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Entity(name = "Genre")
 @Getter
 @NoArgsConstructor
+@Entity(name = "Genre")
 @Table(name = "genres")
 public class GenreEntity {
 
@@ -99,3 +99,5 @@ public class GenreEntity {
         this.categories.remove(GenreCategoryEntity.from(this, id));
     }
 }
+
+

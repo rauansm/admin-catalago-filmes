@@ -13,6 +13,10 @@ server:
       io: 4 # Um thread IO por núcleo da CPU é um padrão razoável: https://undertow.io/undertow-docs/undertow-docs-2.1.0/index.html#listeners-2
 
 spring:
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 1000MB
   application:
     name: admin-catalago-videos
   flyway:
@@ -41,3 +45,13 @@ spring:
       # Para aumentar a performance ao máximo, desabilitamos o auto-commit e o open-in-view.
       # https://vladmihalcea.com/why-you-should-always-use-hibernate-connection-provider_disables_autocommit-for-resource-local-jpa-transactions/
 
+aws:
+  s3:
+    region: us-east-1
+
+
+storage:
+  catalogo-videos:
+    bucket-name: admin-cat-videos
+    filename-pattern: type-{type}
+    location-pattern: videoId-{videoId}

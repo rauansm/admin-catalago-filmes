@@ -169,31 +169,73 @@ public class Video extends AggregateRoot<VideoID> {
         );
     }
 
-    public Video setBanner(final ImageMedia banner) {
+    public static Video with(
+            final VideoID id,
+            final String title,
+            final String description,
+            final Year launchYear,
+            final double duration,
+            final boolean wasOpened,
+            final boolean wasPublished,
+            final Rating rating,
+            final Instant creationDate,
+            final Instant updateDate,
+            final ImageMedia banner,
+            final ImageMedia thumb,
+            final ImageMedia thumbHalf,
+            final AudioVideoMedia trailer,
+            final AudioVideoMedia video,
+            final Set<CategoryID> categories,
+            final Set<GenreID> genres,
+            final Set<CastMemberID> members
+    ) {
+        return new Video(
+                id,
+                title,
+                description,
+                launchYear,
+                duration,
+                wasOpened,
+                wasPublished,
+                rating,
+                creationDate,
+                updateDate,
+                banner,
+                thumb,
+                thumbHalf,
+                trailer,
+                video,
+                categories,
+                genres,
+                members
+        );
+    }
+
+    public Video updateBannerMedia(final ImageMedia banner) {
         this.banner = banner;
         this.updatedAt = InstantUtils.now();
         return this;
     }
 
-    public Video setThumbnail(final ImageMedia thumbnail) {
+    public Video updateThumbnailMedia(final ImageMedia thumbnail) {
         this.thumbnail = thumbnail;
         this.updatedAt = InstantUtils.now();
         return this;
     }
 
-    public Video setThumbnailHalf(final ImageMedia thumbnailHalf) {
+    public Video updateThumbnailHalfMedia(final ImageMedia thumbnailHalf) {
         this.thumbnailHalf = thumbnailHalf;
         this.updatedAt = InstantUtils.now();
         return this;
     }
 
-    public Video setTrailer(final AudioVideoMedia trailer) {
+    public Video updateTrailerMedia(final AudioVideoMedia trailer) {
         this.trailer = trailer;
         this.updatedAt = InstantUtils.now();
         return this;
     }
 
-    public Video setVideo(final AudioVideoMedia video) {
+    public Video updateVideoMedia(final AudioVideoMedia video) {
         this.video = video;
         this.updatedAt = InstantUtils.now();
         return this;

@@ -1,4 +1,4 @@
-package com.codelabs.admin.catalago.application.service.video;
+package com.codelabs.admin.catalago.application.service.video.create;
 
 import com.codelabs.admin.catalago.application.ports.out.*;
 import com.codelabs.admin.catalago.application.service.Fixture;
@@ -23,9 +23,9 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.*;
 
-public class VideoSerivceTest {
+public class CreateVideoSerivceTest {
 
-    private VideoService service;
+    private CreateVideoService service;
     private CategoryPort categoryPort;
     private GenrePort genrePort;
     private VideoPort videoPort;
@@ -39,7 +39,7 @@ public class VideoSerivceTest {
         this.videoPort = mock(VideoPort.class);
         this.castMemberPort = mock(CastMemberPort.class);
         this.mediaResourcePort = mock(MediaResourcePort.class);
-        this.service = new VideoService(this.categoryPort, this.castMemberPort,
+        this.service = new CreateVideoService(this.categoryPort, this.castMemberPort,
                 this.genrePort, this.videoPort, this.mediaResourcePort);
     }
 

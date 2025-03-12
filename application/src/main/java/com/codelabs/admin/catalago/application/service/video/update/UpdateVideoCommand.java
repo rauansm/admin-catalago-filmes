@@ -1,12 +1,12 @@
-package com.codelabs.admin.catalago.application.service.video;
+package com.codelabs.admin.catalago.application.service.video.update;
 
 import com.codelabs.admin.catalago.domain.video.Resource;
-import lombok.Getter;
 
 import java.util.Optional;
 import java.util.Set;
 
-public record CreateVideoCommand(
+public record UpdateVideoCommand(
+        String id,
         String title,
         String description,
         Integer launchedAt,
@@ -24,7 +24,41 @@ public record CreateVideoCommand(
         Resource thumbnailHalf
 ) {
 
-    public static CreateVideoCommand with(
+    public static UpdateVideoCommand with(
+            final String id,
+            final String title,
+            final String description,
+            final Integer launchedAt,
+            final Double duration,
+            final Boolean opened,
+            final Boolean published,
+            final String rating,
+            final Set<String> categories,
+            final Set<String> genres,
+            final Set<String> members
+    ) {
+        return with(
+                id,
+                title,
+                description,
+                launchedAt,
+                duration,
+                opened,
+                published,
+                rating,
+                categories,
+                genres,
+                members,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+    }
+
+    public static UpdateVideoCommand with(
+            final String id,
             final String title,
             final String description,
             final Integer launchedAt,
@@ -41,7 +75,8 @@ public record CreateVideoCommand(
             final Resource thumbnail,
             final Resource thumbnailHalf
     ) {
-        return new CreateVideoCommand(
+        return new UpdateVideoCommand(
+                id,
                 title,
                 description,
                 launchedAt,
@@ -57,37 +92,6 @@ public record CreateVideoCommand(
                 banner,
                 thumbnail,
                 thumbnailHalf
-        );
-    }
-
-    public static CreateVideoCommand with(
-            final String title,
-            final String description,
-            final Integer launchedAt,
-            final Double duration,
-            final Boolean opened,
-            final Boolean published,
-            final String rating,
-            final Set<String> categories,
-            final Set<String> genres,
-            final Set<String> members
-    ) {
-        return new CreateVideoCommand(
-                title,
-                description,
-                launchedAt,
-                duration,
-                opened,
-                published,
-                rating,
-                categories,
-                genres,
-                members,
-                null,
-                null,
-                null,
-                null,
-                null
         );
     }
 

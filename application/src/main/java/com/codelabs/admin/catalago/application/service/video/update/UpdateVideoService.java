@@ -1,6 +1,6 @@
-package com.codelabs.admin.catalago.application.service.video;
+package com.codelabs.admin.catalago.application.service.video.update;
 
-import com.codelabs.admin.catalago.application.ports.in.VideoUseCase;
+import com.codelabs.admin.catalago.application.ports.in.UpdateVideoUseCase;
 import com.codelabs.admin.catalago.application.ports.out.*;
 import com.codelabs.admin.catalago.common.exceptions.InternalErrorException;
 import com.codelabs.admin.catalago.common.exceptions.NotFoundException;
@@ -11,6 +11,7 @@ import com.codelabs.admin.catalago.domain.category.CategoryID;
 import com.codelabs.admin.catalago.domain.enums.Rating;
 import com.codelabs.admin.catalago.domain.genre.GenreID;
 import com.codelabs.admin.catalago.domain.video.Video;
+import com.codelabs.admin.catalago.domain.video.VideoID;
 import com.codelabs.admin.catalago.domain.video.VideoResource;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +29,7 @@ import static net.logstash.logback.marker.Markers.append;
 @UseCase
 @RequiredArgsConstructor
 @Slf4j
-public class VideoService implements VideoUseCase {
+public class UpdateVideoService implements UpdateVideoUseCase {
 
     private final CategoryPort categoryPort;
     private final CastMemberPort castMemberPort;
@@ -37,18 +38,20 @@ public class VideoService implements VideoUseCase {
     private final MediaResourcePort mediaResourcePort;
 
     @Override
-    public Video create(final CreateVideoCommand command) {
-        log.info(append("command", command), "Starting video creation service");
+    public Video update(UpdateVideoCommand command) {
+        log.info(append("command", command), "Starting video update service");
 
         final var categories = toIdentifier(command.categories(), CategoryID::from);
         final var genres = toIdentifier(command.genres(), GenreID::from);
         final var members = toIdentifier(command.members(), CastMemberID::from);
 
+        final var videoFound = this.videoPort.getById(VideoID.from(command.id()));
+
         validateCategories(categories);
         validateGenres(genres);
         validateMembers(members);
 
-        final var video = Video.newVideo(
+        videoFound.update(
                 command.title(),
                 command.description(),
                 Year.of(command.launchedAt()),
@@ -61,11 +64,12 @@ public class VideoService implements VideoUseCase {
                 members
         );
 
-        log.info("Genre creation service completed successfully.");
-        return storeMediaFiles(command, video);
+        log.info(append("video", videoFound), "Video update successfully.");
+
+        return storeMediaFiles(command, videoFound);
     }
 
-    private Video storeMediaFiles(final CreateVideoCommand command, final Video video) {
+    private Video storeMediaFiles(final UpdateVideoCommand command, final Video video) {
         log.info("Starting cloud media storage. {}", video.getId().getValue());
 
         final var id = video.getId();
@@ -95,19 +99,16 @@ public class VideoService implements VideoUseCase {
             log.info("cloud media storage completed successfully. {}", id);
 
             return videoPort.save(video
-                    .setVideo(videoMedia)
-                    .setTrailer(trailerMedia)
-                    .setBanner(bannerMedia)
-                    .setThumbnail(thumbnailMedia)
-                    .setThumbnailHalf(thumbHalfMedia));
+                    .updateVideoMedia(videoMedia)
+                    .updateTrailerMedia(trailerMedia)
+                    .updateBannerMedia(bannerMedia)
+                    .updateThumbnailMedia(thumbnailMedia)
+                    .updateThumbnailHalfMedia(thumbHalfMedia));
 
         } catch (final Throwable t) {
-            this.mediaResourcePort.clearResources(id);
-
             log.error("error on create video [videoId:%s]".formatted(id), t);
             throw new InternalErrorException("An error on create video was observed [videoId:%s]".formatted(id.getValue()));
         }
-
     }
 
     private void validateCategories(final Set<CategoryID> ids) {

@@ -1,7 +1,6 @@
 package com.codelabs.admin.catalago.application.service.category;
 
 import com.codelabs.admin.catalago.application.ports.out.CategoryPort;
-import com.codelabs.admin.catalago.application.service.CategoryService;
 import com.codelabs.admin.catalago.domain.category.Category;
 import com.codelabs.admin.catalago.domain.category.CategoryID;
 import com.codelabs.admin.catalago.domain.pagination.SearchQuery;

@@ -1,4 +1,4 @@
-package com.codelabs.admin.catalago.application.service;
+package com.codelabs.admin.catalago.application.service.genre;
 
 import com.codelabs.admin.catalago.application.ports.in.GenreUseCase;
 import com.codelabs.admin.catalago.application.ports.out.CategoryPort;

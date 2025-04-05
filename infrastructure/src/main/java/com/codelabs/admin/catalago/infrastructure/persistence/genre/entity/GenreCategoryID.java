@@ -19,7 +19,7 @@ public class GenreCategoryID implements Serializable {
     @Column(name = "category_id", nullable = false)
     private String categoryId;
 
-    public static GenreCategoryID from(final String aGenreId, final String aCategoryId) {
-        return new GenreCategoryID(aGenreId, aCategoryId);
+    public static GenreCategoryID from(final String genreId, final String categoryId) {
+        return new GenreCategoryID(genreId, categoryId);
     }
 }

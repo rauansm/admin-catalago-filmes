@@ -4,6 +4,7 @@ import com.codelabs.admin.catalago.application.ports.out.GenrePort;
 import com.codelabs.admin.catalago.common.exceptions.NotFoundException;
 import com.codelabs.admin.catalago.common.stereotype.PersistenceAdapter;
 import com.codelabs.admin.catalago.common.utils.SpecificationUtils;
+import com.codelabs.admin.catalago.domain.category.CategoryID;
 import com.codelabs.admin.catalago.domain.genre.Genre;
 import com.codelabs.admin.catalago.domain.genre.GenreID;
 import com.codelabs.admin.catalago.domain.pagination.Pagination;
@@ -16,7 +17,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 import static net.logstash.logback.argument.StructuredArguments.kv;
 import static net.logstash.logback.marker.Markers.append;
@@ -97,6 +100,20 @@ public class GenrePersistenceAdapter implements GenrePort {
                 pageResult.getTotalElements(),
                 pageResult.map(GenreEntity::toAggregate).toList()
         );
+    }
+
+    @Override
+    public List<GenreID> existsByIds(final Iterable<GenreID> genreIDS) {
+        log.info("Searching genre ids in the database... {}", genreIDS);
+
+        final var ids = StreamSupport.stream(genreIDS.spliterator(), false)
+                .map(GenreID::getValue)
+                .toList();
+
+        return this.genreRepository.existsByIds(ids).stream()
+                .peek(id -> log.info("id found in database: {}", id))
+                .map(GenreID::from)
+                .toList();
     }
 
     private Specification<GenreEntity> assembleSpecification(final String terms) {

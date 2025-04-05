@@ -53,6 +53,18 @@ public class Genre extends AggregateRoot<GenreID> implements Cloneable{
         return new Genre(genreID, name, isActive, new ArrayList<>(), now, now, null);
     }
 
+    public static Genre with(final Genre genre) {
+        return new Genre(
+                genre.id,
+                genre.name,
+                genre.active,
+                new ArrayList<>(genre.categories),
+                genre.createdAt,
+                genre.updatedAt,
+                genre.deletedAt
+        );
+    }
+
     public static Genre with(
             final GenreID id,
             final String name,

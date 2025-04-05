@@ -1,4 +1,4 @@
-package com.codelabs.admin.catalago.application.service;
+package com.codelabs.admin.catalago.application.service.category;
 
 import com.codelabs.admin.catalago.application.ports.in.CategoryUseCase;
 import com.codelabs.admin.catalago.application.ports.out.CategoryPort;

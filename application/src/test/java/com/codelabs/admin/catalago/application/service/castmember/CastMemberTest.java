@@ -1,7 +1,6 @@
 package com.codelabs.admin.catalago.application.service.castmember;
 
 import com.codelabs.admin.catalago.application.ports.out.CastMemberPort;
-import com.codelabs.admin.catalago.application.service.CastMemberService;
 import com.codelabs.admin.catalago.application.service.Fixture;
 import com.codelabs.admin.catalago.domain.castmember.CastMember;
 import com.codelabs.admin.catalago.domain.castmember.CastMemberID;
@@ -35,7 +34,7 @@ public class CastMemberTest {
     public void givenAValidCastMember_whenCallsCreateCastMember_shouldReturnIt() {
         // given
         final var expectedName = Fixture.name();
-        final var expectedType = Fixture.CastMember.type();
+        final var expectedType = Fixture.CastMembers.type();
 
         final var castMember = CastMember.newMember(expectedName, expectedType);
 
@@ -61,7 +60,7 @@ public class CastMemberTest {
     @Test
     public void givenAValidId_whenCallsDeleteCastMember_shouldDeleteIt() {
         // given
-        final var aMember = CastMember.newMember(Fixture.name(), Fixture.CastMember.type());
+        final var aMember = CastMember.newMember(Fixture.name(), Fixture.CastMembers.type());
 
         final var expectedId = aMember.getId();
 
@@ -94,7 +93,7 @@ public class CastMemberTest {
     public void givenAValidId_whenCallsGetCastMember_shouldReturnIt() {
         // given
         final var expectedName = Fixture.name();
-        final var expectedType = Fixture.CastMember.type();
+        final var expectedType = Fixture.CastMembers.type();
 
         final var member = CastMember.newMember(expectedName, expectedType);
 
@@ -160,8 +159,8 @@ public class CastMemberTest {
     public void givenAValidQuery_whenCallsListCastMembers_shouldReturnAll() {
         // given
         final var members = List.of(
-                CastMember.newMember(Fixture.name(), Fixture.CastMember.type()),
-                CastMember.newMember(Fixture.name(), Fixture.CastMember.type())
+                CastMember.newMember(Fixture.name(), Fixture.CastMembers.type()),
+                CastMember.newMember(Fixture.name(), Fixture.CastMembers.type())
         );
 
         final var expectedPage = 0;
